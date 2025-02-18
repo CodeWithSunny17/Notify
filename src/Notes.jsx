@@ -48,7 +48,7 @@ export default function Notes() {
               setPage("create");
             }}
           >
-            Create New Note
+            New Note
           </button>
         )}
       </div>

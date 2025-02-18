@@ -33,7 +33,7 @@ export default function CreateNew({
   };
   return (
     <form
-      className="max-w-md mx-auto bg-white p-6 shadow-md rounded-lg space-y-4"
+      className="w-full max-w-lg mx-auto bg-white p-6 shadow-md rounded-lg space-y-4"
       action=""
       onSubmit={handleSubmit}
     >

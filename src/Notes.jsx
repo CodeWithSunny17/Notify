@@ -12,32 +12,6 @@ export default function Notes() {
     description: "",
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    setNotes((prev) => {
-      const revisedVal = prev.filter((item) => item.id !== formData.id);
-      const newNote = { ...formData, id: Date.now() };
-      const updatedNotes = [...revisedVal, newNote];
-      localStorage.setItem("events", JSON.stringify(updatedNotes));
-      return updatedNotes;
-    });
-
-    setFormData({
-      id: "",
-      title: "",
-      description: "",
-    });
-    setPage("list");
-    e.preventDefault();
-  };
-
   const handleDelete = (id) => {
     const updatedNotes = notes.filter((note) => note.id !== id);
     setNotes(updatedNotes);
@@ -54,7 +28,6 @@ export default function Notes() {
     const storedEvents = localStorage.getItem("events");
     if (storedEvents) {
       setNotes(JSON.parse(storedEvents));
-      // console.log(setNotes);
     }
   }, []);
 
@@ -88,9 +61,10 @@ export default function Notes() {
         />
       ) : (
         <CreateNew
+          setPage={setPage}
+          setNotes={setNotes}
           formData={formData}
-          handleSubmit={handleSubmit}
-          handleChange={handleChange}
+          setFormData={setFormData}
         />
       )}
     </div>

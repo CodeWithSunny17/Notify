@@ -32,34 +32,37 @@ export default function CreateNew({
     e.preventDefault();
   };
   return (
-    <form className="" action="" onSubmit={handleSubmit}>
-      <div className="">
-        <label className="">Title</label>
+    <form
+      className="max-w-md mx-auto bg-white p-6 shadow-md rounded-lg space-y-4"
+      action=""
+      onSubmit={handleSubmit}
+    >
+      <div className="flex flex-col">
+        <label className="text-gray-700 font-medium mb-1">Title</label>
         <input
-          className=""
+          className="bg-slate-100 text-gray-700 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
           type="text"
           name="title"
-          placeholder="Title"
+          placeholder="Enter title..."
           value={formData.title}
           onChange={handleChange}
         />
       </div>
-      <div className="">
-        <label className="">Description</label>
+
+      <div className="flex flex-col">
+        <label className="text-gray-700 font-medium mb-1">Description</label>
         <textarea
-          className=""
-          type="text"
+          className="bg-slate-100 text-gray-700 border border-gray-300 rounded-lg px-3 py-2 h-48 w-full resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
           name="description"
           placeholder="Write anything..."
           value={formData.description}
           onChange={handleChange}
-          style={{
-            height: "300px",
-            width: "400px",
-          }}
         />
       </div>
-      <button className="">Submit</button>
+
+      <button className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition">
+        Submit
+      </button>
     </form>
   );
 }

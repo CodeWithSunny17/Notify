@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import List from "./Components/List";
 import CreateNew from "./Components/CreateNew";
-// import "./style.css";
 
 export default function Notes() {
   const [page, setPage] = useState("list");
@@ -32,10 +31,10 @@ export default function Notes() {
   }, []);
 
   return (
-    <div className="">
-      <div className="">
+    <div className="flex flex-col items-center gap-4 py-4 bg-gray-100 min-h-screen">
+      <div className="flex gap-4">
         <button
-          className=""
+          className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition"
           onClick={() => {
             setPage("list");
           }}
@@ -44,7 +43,7 @@ export default function Notes() {
         </button>
         {page === "list" && (
           <button
-            className=""
+            className="px-4 py-2 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transition"
             onClick={() => {
               setPage("create");
             }}

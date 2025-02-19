@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 
 export default function CreateNew({
   setPage,
   setNotes,
   formData,
   setFormData,
+  enable,
+  setEnable,
 }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,7 +21,7 @@ export default function CreateNew({
       // const revisedVal = prev.filter((item) => item.id !== formData.id);
       // const newNote = { ...formData, id: Date.now() };
       // const updatedNotes = [...revisedVal, newNote];
-
+      setEnable(false);
       const prevId = formData.id !== "" ? formData.id : Date.now();
       const revisedVal = prev.filter((item) => item.id !== formData.id);
       const updatedNotes = [...revisedVal, { ...formData, id: prevId }];
@@ -38,24 +40,23 @@ export default function CreateNew({
 
   return (
     <form
-      className="w-full max-w-lg mx-auto bg-white p-6 shadow-md rounded-lg space-y-4"
+      className="w-full flex flex-col justify-center items-center max-w-lg mx-auto bg-white p-4 shadow-md rounded-lg space-y-4"
       action=""
       onSubmit={handleSubmit}
     >
-      <div className="flex flex-col">
-        <label className="text-gray-700 font-medium mb-1">Title</label>
-        <input
-          className="bg-slate-100 text-gray-700 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          type="text"
-          name="title"
-          placeholder="Enter title..."
-          value={formData.title}
-          onChange={handleChange}
-        />
-      </div>
+      <input
+        className="w-full bg-slate-100 text-gray-700 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        type="text"
+        name="title"
+        placeholder={enable ? "Title" : "Create New..."}
+        value={formData.title}
+        onChange={handleChange}
+        onClick={() => {
+          setEnable(true);
+        }}
+      />
 
-      <div className="flex flex-col">
-        <label className="text-gray-700 font-medium mb-1">Description</label>
+      {enable && (
         <textarea
           className="bg-slate-100 text-gray-700 border border-gray-300 rounded-lg px-3 py-2 h-48 w-full resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
           name="description"
@@ -63,11 +64,13 @@ export default function CreateNew({
           value={formData.description}
           onChange={handleChange}
         />
-      </div>
+      )}
 
-      <button className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition">
-        Submit
-      </button>
+      {enable && (
+        <button className="w-2/3 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition">
+          Create
+        </button>
+      )}
     </form>
   );
 }

@@ -4,7 +4,8 @@ import CreateNew from "./Components/CreateNew";
 import { FaPlus } from "react-icons/fa6";
 
 export default function Notes() {
-  const [page, setPage] = useState("list");
+  const [page, setPage] = useState("create");
+  const [enable, setEnable] = useState(false);
   const [notes, setNotes] = useState([]);
   const [formData, setFormData] = useState({
     id: "",
@@ -21,6 +22,7 @@ export default function Notes() {
   const handleEdit = (id) => {
     const editedForm = notes.filter((note) => note.id === id);
     setPage("create");
+    setEnable(true);
     setFormData(...editedForm);
   };
 
@@ -32,18 +34,22 @@ export default function Notes() {
   }, []);
 
   return (
-    <div className="relative flex flex-col items-center rounded-lg gap-4 py-8 bg-gray-100 min-h-screen">
-      {/* <div className="flex gap-4 relative"> */}
+    <div className="relative flex flex-col items-center rounded-lg gap-14 py-8 bg-gray-100 min-h-screen">
       <button
         className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition"
         onClick={() => {
           setPage("list");
+          setEnable(false);
+          setFormData({
+            id: "",
+            title: "",
+            description: "",
+          });
         }}
       >
         Note List
       </button>
 
-      {/* </div> */}
       {page === "list" ? (
         <List
           notes={notes}
@@ -52,6 +58,8 @@ export default function Notes() {
         />
       ) : (
         <CreateNew
+          enable={enable}
+          setEnable={setEnable}
           setPage={setPage}
           setNotes={setNotes}
           formData={formData}

@@ -60,7 +60,7 @@ export default function Notes() {
       )}
       {page === "list" && (
         <button
-          className="fixed right-20 bottom-20 p-4 bg-green-500 text-white rounded-full shadow-md hover:bg-green-600 transition"
+          className="fixed right-2 bottom-2 p-4 bg-green-500 text-white rounded-full shadow-md hover:bg-green-600 transition"
           onClick={() => {
             setPage("create");
           }}

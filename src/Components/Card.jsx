@@ -6,7 +6,7 @@ export default function Card({ note, handleEdit, handleDelete }) {
       className="flex flex-col items-center gap-4 p-4 bg-white shadow-md rounded-lg border border-gray-300"
       key={note.id}
     >
-      <p className="text-gray-500 font-medium">{note.id}</p>
+      {/* <p className="text-gray-500 font-medium">{note.id}</p> */}
       <div className="flex flex-col items-center gap-2">
         <p className="text-lg font-semibold text-gray-800">{note.title}</p>
         <p className="text-gray-600 flex-1">{note.description}</p>

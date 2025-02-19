@@ -19,10 +19,10 @@ export default function CreateNew({
       // const revisedVal = prev.filter((item) => item.id !== formData.id);
       // const newNote = { ...formData, id: Date.now() };
       // const updatedNotes = [...revisedVal, newNote];
-      
+
       const prevId = formData.id !== "" ? formData.id : Date.now();
-      const revisedVal = prev.filter((item) => item.id !== formData.id)
-      const updatedNotes = [...revisedVal, { ...formData, id: prevId }]
+      const revisedVal = prev.filter((item) => item.id !== formData.id);
+      const updatedNotes = [...revisedVal, { ...formData, id: prevId }];
       localStorage.setItem("events", JSON.stringify(updatedNotes));
       return updatedNotes;
     });
@@ -35,6 +35,7 @@ export default function CreateNew({
     setPage("list");
     e.preventDefault();
   };
+
   return (
     <form
       className="w-full max-w-lg mx-auto bg-white p-6 shadow-md rounded-lg space-y-4"

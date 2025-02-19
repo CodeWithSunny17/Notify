@@ -16,9 +16,13 @@ export default function CreateNew({
 
   const handleSubmit = (e) => {
     setNotes((prev) => {
-      const revisedVal = prev.filter((item) => item.id !== formData.id);
-      const newNote = { ...formData, id: Date.now() };
-      const updatedNotes = [...revisedVal, newNote];
+      // const revisedVal = prev.filter((item) => item.id !== formData.id);
+      // const newNote = { ...formData, id: Date.now() };
+      // const updatedNotes = [...revisedVal, newNote];
+      
+      const prevId = formData.id !== "" ? formData.id : Date.now();
+      const revisedVal = prev.filter((item) => item.id !== formData.id)
+      const updatedNotes = [...revisedVal, { ...formData, id: prevId }]
       localStorage.setItem("events", JSON.stringify(updatedNotes));
       return updatedNotes;
     });

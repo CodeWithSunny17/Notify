@@ -66,7 +66,6 @@ export default function Notes() {
     try {
       await axios.put(`http://localhost:2500/notes/${editId}`, formData);
       setFormData({
-        id: "",
         title: "",
         description: "",
       });
@@ -86,7 +85,6 @@ export default function Notes() {
           setPage("list");
           setEnable(false);
           setFormData({
-            id: "",
             title: "",
             description: "",
           });

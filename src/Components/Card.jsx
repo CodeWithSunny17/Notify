@@ -22,7 +22,6 @@ export default function Card({
           className="px-3 py-1 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition"
           onClick={() => {
             setFormData({
-              id: note._id,
               title: note.title,
               description: note.description,
             });

@@ -2,36 +2,78 @@ import React, { useState, useEffect } from "react";
 import List from "./Components/List";
 import CreateNew from "./Components/CreateNew";
 import { FaPlus } from "react-icons/fa6";
+import axios from "axios";
 
 export default function Notes() {
   const [page, setPage] = useState("create");
   const [enable, setEnable] = useState(false);
   const [notes, setNotes] = useState([]);
+  const [editId, setEditId] = useState(null);
   const [formData, setFormData] = useState({
-    id: "",
     title: "",
     description: "",
   });
 
-  const handleDelete = (id) => {
-    const updatedNotes = notes.filter((note) => note.id !== id);
-    setNotes(updatedNotes);
-    localStorage.setItem("events", JSON.stringify(updatedNotes));
-  };
-
-  const handleEdit = (id) => {
-    const editedForm = notes.filter((note) => note.id === id);
-    setPage("create");
-    setEnable(true);
-    setFormData(...editedForm);
-  };
-
   useEffect(() => {
-    const storedEvents = localStorage.getItem("events");
-    if (storedEvents) {
-      setNotes(JSON.parse(storedEvents));
-    }
+    fetchNotes();
   }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const fetchNotes = async () => {
+    try {
+      const response = await axios.get("http://localhost:2500/notes");
+      setNotes(response.data);
+    } catch (error) {
+      console.error("Error fetching notes", error);
+    }
+  };
+
+  const createNote = async (e) => {
+    try {
+      await axios.post("http://localhost:2500/create", formData);
+      setFormData({
+        title: "",
+        description: "",
+      });
+      setEnable(false);
+      setPage("list");
+      fetchNotes();
+    } catch (error) {
+      console.error("Error creating note", error);
+    }
+    e.preventDefault();
+  };
+
+  const deleteNote = async (id) => {
+    try {
+      await axios.delete(`http://localhost:2500/notes/${id}`);
+      fetchNotes();
+    } catch (error) {
+      console.error("Error deleting note", error);
+    }
+  };
+
+  const updateNote = async () => {
+    try {
+      await axios.put(`http://localhost:2500/notes/${editId}`, formData);
+      setFormData({
+        title: "",
+        description: "",
+      });
+      setEditId(null);
+      setPage("list");
+      fetchNotes();
+    } catch (error) {
+      console.error("Error updating note", error);
+    }
+  };
 
   return (
     <div className="relative flex flex-col items-center rounded-lg gap-14 py-8 bg-gray-100 min-h-screen">
@@ -53,17 +95,22 @@ export default function Notes() {
       {page === "list" ? (
         <List
           notes={notes}
-          handleDelete={handleDelete}
-          handleEdit={handleEdit}
+          deleteNote={deleteNote}
+          updateNote={updateNote}
+          setFormData={setFormData}
+          setEditId={setEditId}
+          setPage={setPage}
+          setEnable={setEnable}
         />
       ) : (
         <CreateNew
+          editId={editId}
+          formData={formData}
           enable={enable}
           setEnable={setEnable}
-          setPage={setPage}
-          setNotes={setNotes}
-          formData={formData}
-          setFormData={setFormData}
+          handleChange={handleChange}
+          createNote={createNote}
+          updateNote={updateNote}
         />
       )}
       {page === "list" && (

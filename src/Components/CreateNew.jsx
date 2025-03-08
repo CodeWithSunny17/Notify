@@ -1,49 +1,16 @@
 import React from "react";
 
 export default function CreateNew({
-  setPage,
-  setNotes,
+  editId,
   formData,
-  setFormData,
   enable,
   setEnable,
+  handleChange,
+  createNote,
+  updateNote,
 }) {
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    setNotes((prev) => {
-      // const revisedVal = prev.filter((item) => item.id !== formData.id);
-      // const newNote = { ...formData, id: Date.now() };
-      // const updatedNotes = [...revisedVal, newNote];
-      setEnable(false);
-      const prevId = formData.id !== "" ? formData.id : Date.now();
-      const revisedVal = prev.filter((item) => item.id !== formData.id);
-      const updatedNotes = [...revisedVal, { ...formData, id: prevId }];
-      localStorage.setItem("events", JSON.stringify(updatedNotes));
-      return updatedNotes;
-    });
-
-    setFormData({
-      id: "",
-      title: "",
-      description: "",
-    });
-    setPage("list");
-    e.preventDefault();
-  };
-
   return (
-    <form
-      className="w-full flex flex-col justify-center items-center max-w-lg mx-auto bg-white p-4 shadow-md rounded-lg space-y-4"
-      action=""
-      onSubmit={handleSubmit}
-    >
+    <div className="w-full flex flex-col justify-center items-center max-w-lg mx-auto bg-white p-4 shadow-md rounded-lg space-y-4">
       <input
         className="w-full bg-slate-100 text-gray-700 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
         type="text"
@@ -67,10 +34,13 @@ export default function CreateNew({
       )}
 
       {enable && (
-        <button className="w-2/3 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition">
-          Create
+        <button
+          className="w-2/3 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
+          onClick={editId ? updateNote : createNote}
+        >
+          {editId ? "Update Note" : "Create Note"}
         </button>
       )}
-    </form>
+    </div>
   );
 }

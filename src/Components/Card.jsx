@@ -11,7 +11,7 @@ export default function Card({
   return (
     <div
       className="flex flex-col items-center gap-4 p-4 bg-white shadow-md rounded-lg border border-gray-300"
-      key={note.id}
+      key={note._id}
     >
       <div className="flex flex-col items-center gap-2">
         <p className="text-lg font-semibold text-gray-800">{note.title}</p>
@@ -22,6 +22,7 @@ export default function Card({
           className="px-3 py-1 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition"
           onClick={() => {
             setFormData({
+              id: note._id,
               title: note.title,
               description: note.description,
             });

@@ -36,6 +36,7 @@ export default function Notes() {
   };
 
   const createNote = async (e) => {
+    e.preventDefault();
     try {
       await axios.post("http://localhost:2500/create", formData);
       setFormData({
@@ -60,10 +61,12 @@ export default function Notes() {
     }
   };
 
-  const updateNote = async () => {
+  const updateNote = async (e) => {
+    e.preventDefault();
     try {
       await axios.put(`http://localhost:2500/notes/${editId}`, formData);
       setFormData({
+        id: "",
         title: "",
         description: "",
       });

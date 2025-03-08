@@ -10,7 +10,11 @@ export default function CreateNew({
   updateNote,
 }) {
   return (
-    <div className="w-full flex flex-col justify-center items-center max-w-lg mx-auto bg-white p-4 shadow-md rounded-lg space-y-4">
+    <form
+      className="w-full flex flex-col justify-center items-center max-w-lg mx-auto bg-white p-4 shadow-md rounded-lg space-y-4"
+      action=""
+      onSubmit={editId ? updateNote : createNote}
+    >
       <input
         className="w-full bg-slate-100 text-gray-700 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
         type="text"
@@ -36,11 +40,11 @@ export default function CreateNew({
       {enable && (
         <button
           className="w-2/3 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
-          onClick={editId ? updateNote : createNote}
+          // onClick={editId ? updateNote : createNote}
         >
           {editId ? "Update Note" : "Create Note"}
         </button>
       )}
-    </div>
+    </form>
   );
 }
